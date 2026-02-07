@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¿Quieres ser mi San Valentín?</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      max-width: 350px;
+      width: 90%;
+      animation: fadeIn 1s ease;
+    }
+
+    h1 { font-size: 22px; color: #ff4d6d; }
+
+    .buttons { margin-top: 20px; display: flex; flex-direction: column; gap: 12px; }
+
+    button {
+      padding: 12px;
+      border:none;
+      border-radius:15px;
+      font-size:16px;
+      cursor:pointer;
+    }
+
+    .yes { background:#ff4d6d; color:white; }
+    .maybe { background:#ffd166; }
+    .no { background:#adb5bd; position:relative; }
+
+    .hearts {
+      position: fixed;
+      width:100%;
+      height:100%;
+      top:0;
+      left:0;
+      pointer-events:none;
+    }
+
+    .heart {
+      position:absolute;
+      font-size:24px;
+      animation: float 4s linear infinite;
+    }
+
+    @keyframes float {
+      0%{transform:translateY(100vh);opacity:1;}
+      100%{transform:translateY(-10vh);opacity:0;}
+    }
+
+    @keyframes fadeIn {
+      from{opacity:0;transform:translateY(20px);}
+      to{opacity:1;transform:translateY(0);}
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container" id="screen1">
+  <h1>Hola... tengo algo importante que decirte 💭</h1>
+  <button onclick="nextScreen(2)">Continuar</button>
+</div>
+
+<div class="container" id="screen2" style="display:none">
+  <h1>Desde hace tiempo quería preguntarte esto...</h1>
+  <button onclick="nextScreen(3)">Continuar</button>
+</div>
+
+<div class="container" id="screen3" style="display:none">
+  <h1>💘 ¿Quieres ser mi San Valentín? 💘</h1>
+  <div class="buttons">
+    <button class="yes" onclick="acceptLove()">💖 Sí</button>
+    <button class="maybe">😳 Tal vez</button>
+    <button class="no" id="noBtn">😢 No</button>
+  </div>
+</div>
+
+<div class="container" id="screen4" style="display:none">
+  <h1>Siempre lo supe amor ❤️</h1>
+  <p>Prometo hacerte muy feliz 💕</p>
+</div>
+
+<div class="hearts" id="hearts"></div>
+
+<script>
+  function nextScreen(num){
+    document.querySelectorAll('.container').forEach(el=>el.style.display='none');
+    document.getElementById('screen'+num).style.display='block';
+  }
+
+  // botón NO que huye
+  const noBtn=document.getElementById('noBtn');
+  noBtn.addEventListener('touchstart',moveButton);
+  noBtn.addEventListener('mouseover',moveButton);
+
+  function moveButton(){
+    const x=Math.random()*200-100;
+    const y=Math.random()*200-100;
+    noBtn.style.transform=`translate(${x}px, ${y}px)`;
+  }
+
+  function acceptLove(){
+    showHearts();
+    nextScreen(4);
+  }
+
+  // corazones animados
+  function showHearts(){
+    const hearts=document.getElementById('hearts');
+    for(let i=0;i<20;i++){
+      const h=document.createElement('div');
+      h.className='heart';
+      h.style.left=Math.random()*100+'vw';
+      h.innerHTML='❤️';
+      hearts.appendChild(h);
+      setTimeout(()=>h.remove(),4000);
+    }
+  }
+</script>
+
+</body>
+</html>
