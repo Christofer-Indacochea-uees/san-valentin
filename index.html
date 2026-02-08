@@ -78,19 +78,17 @@
 
 <body>
 
-<!-- MUSICA -->
-<audio id="music">
-  <source src="musica.mp3" type="audio/mpeg">
-</audio>
+<!-- VIDEO OCULTO DE LOVER -->
+<iframe id="loverMusic"
+src="https://www.youtube.com/embed/-BjZmE2gtdo?autoplay=1&loop=1&playlist=-BjZmE2gtdo"
+allow="autoplay"
+style="display:none;">
+</iframe>
 
 <div class="container" id="screen1">
   <h1>Hola... tengo algo importante que decirte 💭</h1>
-  
-  <button onclick="activarMusica()">🔊 Activar sonido</button>
-  <br><br>
-  <button onclick="nextScreen(2)">Continuar</button>
+  <button onclick="startMusic()">Continuar</button>
 </div>
-
 
 <div class="container" id="screen2" style="display:none">
   <h1>Desde hace tiempo quería preguntarte esto...</h1>
@@ -114,26 +112,12 @@
 
 <script>
 
-  // INICIA MUSICA EN EL PRIMER CLICK
-  function startExperience(){
-  const music = document.getElementById("music");
-
-  music.currentTime = 0;
-  music.volume = 1;
-
-  const playPromise = music.play();
-
-  if (playPromise !== undefined) {
-    playPromise.then(() => {
-      console.log("Audio iniciado");
-    }).catch(() => {
-      alert("Toca la pantalla nuevamente para activar el sonido ❤️");
-    });
+  // INICIA LA MUSICA DE YOUTUBE
+  function startMusic(){
+    const frame = document.getElementById("loverMusic");
+    frame.style.display = "block";
+    nextScreen(2);
   }
-
-  nextScreen(2);
-}
-
 
   function nextScreen(num){
     document.querySelectorAll('.container').forEach(el=>el.style.display='none');
@@ -156,10 +140,10 @@
     nextScreen(4);
   }
 
-  // corazones
+  // corazones animados
   function showHearts(){
     const hearts=document.getElementById('hearts');
-    for(let i=0;i<25;i++){
+    for(let i=0;i<30;i++){
       const h=document.createElement('div');
       h.className='heart';
       h.style.left=Math.random()*100+'vw';
@@ -169,15 +153,7 @@
     }
   }
 
-  function activarMusica(){
-  const music = document.getElementById("music");
-  music.play();
-}
-
-
 </script>
 
 </body>
 </html>
-
-
